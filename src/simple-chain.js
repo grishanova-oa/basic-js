@@ -7,18 +7,10 @@ const { NotImplementedError } = require('../extensions/index.js');
  const chainMaker = {
   chain: [],
   getLength() {
-    return this.chain.length;
+    return this.chain.length
   },
-  addLink(value) {
-    if (value === undefined) {
-      this.chain.push('(  )');
-      return this;
-    }
-    if (value === null) {
-      this.chain.push(value);
-      return this;
-    }
-    this.chain.push(value.toString());
+  addLink(link) {
+    this.chain.push(`( ${link} )`)
 
     return this;
   },
@@ -44,17 +36,10 @@ const { NotImplementedError } = require('../extensions/index.js');
     return this;
   },
   finishChain() {
-    let result = '';
-    this.chain.forEach((item, index) => {
-      if (index + 1 === this.chain.length) {
-        result += `( ${item} )`;
-      } else {
-        result += `( ${item} )~~`;
-      }
+    let result = this.chain.filter(item => item != undefined).join('~~');
+    this.chain = [];
 
-    })
-
-    return result;
+    return result
   }
 };
 
